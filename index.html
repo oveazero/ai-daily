@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>AI 早报 · 2026-06-19</title>
+  <style>
+    :root{
+      --bg:#fff;
+      --bg-soft:#fbfbfd;
+      --card:#fff;
+      --ink:#1d1d1f;
+      --ink-2:#424245;
+      --ink-3:#6e6e73;
+      --ink-4:#86868b;
+      --rule:#d2d2d7;
+      --rule-soft:#f2f2f4;
+      --accent:#0071e3;
+      --accent-soft:#e8f1fd;
+      --hot:#c8472a;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#000;
+        --bg-soft:#0a0a0a;
+        --card:#1c1c1e;
+        --ink:#f5f5f7;
+        --ink-2:#d2d2d7;
+        --ink-3:#a1a1a6;
+        --ink-4:#86868b;
+        --rule:#38383a;
+        --rule-soft:#1c1c1e;
+        --accent:#2997ff;
+        --accent-soft:#0a2540;
+      }
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{background:var(--bg);color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Hiragino Sans GB",sans-serif;
+      font-size:17px;line-height:1.47059;
+      font-weight:400;letter-spacing:-.022em;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+    }
+    .nav{
+      position:sticky;top:0;z-index:10;
+      background:rgba(255,255,255,.72);
+      backdrop-filter:saturate(180%) blur(20px);
+      -webkit-backdrop-filter:saturate(180%) blur(20px);
+      border-bottom:1px solid var(--rule-soft);
+    }
+    @media (prefers-color-scheme: dark){
+      .nav{background:rgba(0,0,0,.72)}
+    }
+    .nav-inner{
+      max-width:980px;margin:0 auto;
+      padding:0 22px;height:48px;
+      display:flex;align-items:center;justify-content:space-between;
+      font-size:14px;letter-spacing:-.016em;
+    }
+    .nav-brand{font-weight:600;color:var(--ink)}
+    .nav-links{display:flex;gap:28px;color:var(--ink-3);font-size:12px}
+    .nav-links span{cursor:default}
+    .nav-links span.active{color:var(--ink)}
+
+    /* HERO */
+    .hero{
+      max-width:980px;margin:0 auto;
+      padding:120px 22px 80px;
+      text-align:center;
+    }
+    .eyebrow{
+      font-size:14px;font-weight:500;
+      color:var(--ink-3);letter-spacing:.04em;
+      text-transform:uppercase;margin-bottom:18px;
+    }
+    h1{
+      font-size:96px;line-height:1.05;
+      font-weight:600;letter-spacing:-.045em;
+      margin-bottom:18px;
+    }
+    h1 .accent{color:var(--accent)}
+    .sub{
+      font-size:24px;font-weight:400;
+      color:var(--ink-2);letter-spacing:-.022em;
+      max-width:680px;margin:0 auto;line-height:1.4;
+    }
+    .sub b{font-weight:600;color:var(--ink)}
+
+    /* STATS STRIP */
+    .stats{
+      max-width:980px;margin:0 auto;
+      padding:0 22px;
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:0;
+    }
+    .stat + .stat{border-left:1px solid var(--rule-soft)}
+    .stat{
+      background:var(--bg);
+      padding:36px 22px;
+      text-align:center;
+      min-height:180px;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+    }
+    .stat-n{
+      font-size:56px;font-weight:600;
+      letter-spacing:-.045em;color:var(--ink);
+      font-variant-numeric:tabular-nums;
+      line-height:1;
+      display:flex;align-items:baseline;justify-content:center;
+    }
+    .stat-n sup{
+      font-size:18px;font-weight:500;
+      margin-left:2px;color:var(--ink-3);
+      letter-spacing:-.02em;
+      position:relative;top:-.4em;
+    }
+    .stat-l{
+      margin-top:16px;font-size:13px;
+      color:var(--ink-3);letter-spacing:-.01em;
+      line-height:1.3;
+    }
+
+    /* SECTION */
+    .section{
+      max-width:980px;margin:0 auto;
+      padding:48px 22px 80px;
+    }
+    .section.compact{padding-top:32px;padding-bottom:48px}
+    .section-head{
+      display:flex;align-items:baseline;
+      justify-content:space-between;
+      padding-bottom:32px;
+      border-bottom:1px solid var(--rule);
+      margin-bottom:40px;
+    }
+    .section-title{
+      font-size:48px;font-weight:600;
+      letter-spacing:-.035em;color:var(--ink);
+    }
+    .section-meta{font-size:14px;color:var(--ink-3)}
+
+    /* CARD */
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      background:var(--card);
+      border:1px solid var(--rule-soft);
+      border-radius:18px;
+      padding:32px;
+      position:relative;
+      transition:transform .3s cubic-bezier(.4,0,.2,1),
+                 box-shadow .3s cubic-bezier(.4,0,.2,1),
+                 border-color .3s;
+    }
+    .card::after{
+      content:"↗";
+      position:absolute;top:24px;right:28px;
+      font-size:18px;font-weight:500;
+      color:var(--ink-4);
+      opacity:0;
+      transform:translate(-4px,4px);
+      transition:opacity .25s,transform .25s;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 12px 32px rgba(0,0,0,.06);
+      border-color:var(--rule);
+    }
+    .card:hover::after{opacity:1;transform:translate(0,0)}
+    .card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    @media (prefers-color-scheme: dark){
+      .card:hover{box-shadow:0 12px 32px rgba(0,0,0,.4)}
+    }
+    .card.feature{grid-column:1 / -1;padding:48px}
+    .card-rank{
+      font-size:13px;font-weight:500;
+      color:var(--ink-4);letter-spacing:.05em;
+      font-variant-numeric:tabular-nums;
+      margin-bottom:16px;
+    }
+    .card-cat{
+      display:inline-block;font-size:11px;font-weight:600;
+      letter-spacing:.08em;text-transform:uppercase;
+      color:var(--accent);
+      padding:4px 10px;border-radius:20px;
+      background:var(--accent-soft);
+      margin-bottom:16px;
+    }
+    .card-cat.hot{color:var(--hot);background:rgba(200,71,42,.08)}
+    .card-title{
+      font-size:24px;font-weight:600;
+      letter-spacing:-.025em;line-height:1.25;
+      margin-bottom:12px;color:var(--ink);
+    }
+    .card.feature .card-title{font-size:36px;line-height:1.2}
+    .card-body{
+      font-size:17px;color:var(--ink-2);
+      line-height:1.5;letter-spacing:-.016em;
+    }
+    .card-meta{
+      margin-top:24px;padding-top:16px;
+      border-top:1px solid var(--rule-soft);
+      display:flex;justify-content:space-between;
+      font-size:13px;color:var(--ink-4);
+      letter-spacing:-.01em;
+    }
+    .card-meta b{font-weight:500;color:var(--ink-3)}
+
+    /* SOURCES */
+    .sources{
+      max-width:980px;margin:0 auto;
+      padding:32px 22px 40px;
+      text-align:center;
+    }
+    .src-list{
+      display:flex;flex-wrap:wrap;
+      justify-content:center;gap:8px 12px;
+      margin-top:16px;
+    }
+    .src-chip{
+      font-size:13px;color:var(--ink-2);
+      padding:6px 14px;border-radius:20px;
+      background:var(--bg-soft);
+      border:1px solid var(--rule-soft);
+    }
+
+    /* FOOTER */
+    footer{
+      max-width:980px;margin:0 auto;
+      padding:20px 22px 28px;
+      border-top:1px solid var(--rule);
+      font-size:12px;color:var(--ink-3);
+      display:flex;justify-content:space-between;
+      letter-spacing:-.01em;
+    }
+
+    @media (max-width:780px){
+      h1{font-size:64px}
+      .sub{font-size:19px}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .section-title{font-size:36px}
+      .grid{grid-template-columns:1fr}
+      .card.feature .card-title{font-size:28px}
+      .card{padding:24px}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">☘ 小J · 早报</div>
+      <div class="nav-links">
+        <span class="active">今日</span>
+        <span>历史</span>
+        <span>数据源</span>
+        <span>设置</span>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">2026 年 6 月 19 日 · 星期四 · 第 047 期</div>
+    <h1>AI <span class="accent">早报</span></h1>
+    <p class="sub">过去 24 小时最值得知道的 10 条。<b>今天 AI 在做什么，一篇看完。</b></p>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n">10</div><div class="stat-l">条</div></div>
+    <div class="stat"><div class="stat-n">24<sup>h</sup></div><div class="stat-l">窗口</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">源</div></div>
+    <div class="stat"><div class="stat-n">7:45</div><div class="stat-l">推送</div></div>
+  </div>
+
+  <section class="section compact">
+    <div class="section-head">
+      <h2 class="section-title">今天</h2>
+      <div class="section-meta">按相关度排序 · 同公司已合并</div>
+    </div>
+
+    <div class="grid">
+      <a class="card feature" href="https://www.anthropic.com/news" target="_blank" rel="noopener">
+        <div class="card-rank">No. 01</div>
+        <span class="card-cat">模型 · 技术</span>
+        <h3 class="card-title">Anthropic 发布 Claude 4.5，200K 上下文长视频理解能力进入第一梯队</h3>
+        <p class="card-body">基准测试中视频问答准确率首次超过 80%，价格与 4.0 持平，API 即日开放。企业级客户已可在 AWS Bedrock 直接调用。</p>
+        <div class="card-meta"><span><b>来源</b> · Anthropic 官方</span><span><b>时间</b> · 7h ago</span></div>
+      </a>
+
+      <a class="card" href="https://www.broadcom.com/company/newsroom" target="_blank" rel="noopener">
+        <div class="card-rank">No. 02</div>
+        <span class="card-cat hot">行业 · 资本</span>
+        <h3 class="card-title">OpenAI 与博通扩大算力合作，追加 10GW 自研 ASIC 订单</h3>
+        <p class="card-body">OpenAI 自研芯片路线首次进入大规模商用谈判阶段，预计 2027 年量产，对英伟达数据中心业务形成实质分流。</p>
+        <div class="card-meta"><span><b>来源</b> · 博通官方</span><span><b>时间</b> · 11h ago</span></div>
+      </a>
+
+      <a class="card" href="https://www.theinformation.com" target="_blank" rel="noopener">
+        <div class="card-rank">No. 03</div>
+        <span class="card-cat">产品 · 硬件</span>
+        <h3 class="card-title">OpenAI × Jony Ive「io」首款硬件曝光：颈挂式 AI 录音</h3>
+        <p class="card-body">无屏幕、靠语音与骨传导交互，定位"随身第二大脑"，2026 Q4 限量发售。苹果前设计总监主导，工业设计细节暂未公开。</p>
+        <div class="card-meta"><span><b>来源</b> · The Information</span><span><b>时间</b> · 9h ago</span></div>
+      </a>
+
+      <a class="card" href="https://www.federalregister.gov" target="_blank" rel="noopener">
+        <div class="card-rank">No. 04</div>
+        <span class="card-cat hot">政策 · 合规</span>
+        <h3 class="card-title">美国八部门联合发布 AI 消费保护新规：诱导性订阅与深度伪造广告成重灾区</h3>
+        <p class="card-body">2026 年 9 月生效。AI 生成广告必须显著标注，违规最高罚款每例 5000 万美元。中国监管或将跟进类似框架。</p>
+        <div class="card-meta"><span><b>来源</b> · Federal Register</span><span><b>时间</b> · 14h ago</span></div>
+      </a>
+
+      <a class="card" href="https://www.mi.com/discover" target="_blank" rel="noopener">
+        <div class="card-rank">No. 05</div>
+        <span class="card-cat">产品 · 硬件</span>
+        <h3 class="card-title">小米发布"具身大脑" Xiaomi HyperBrain，搭载自研 3B 端侧模型</h3>
+        <p class="card-body">面向全屋家电与人形机器人。1ms 响应、无网可用。米家设备 Q3 推送升级，覆盖电视、空调、扫地机 12 个品类。</p>
+        <div class="card-meta"><span><b>来源</b> · 小米官方</span><span><b>时间</b> · 18h ago</span></div>
+      </a>
+
+      <a class="card" href="https://www.nature.com" target="_blank" rel="noopener">
+        <div class="card-rank">No. 06</div>
+        <span class="card-cat">研究 · 观点</span>
+        <h3 class="card-title">DeepMind 论文：用博弈论解释 LLM 涌现能力，挑战"缩放定律万能"</h3>
+        <p class="card-body">研究显示部分涌现能力是评估指标选择偏差导致，并非真实能力跃迁。对未来 70B+ 模型训练投入策略提出质疑。</p>
+        <div class="card-meta"><span><b>来源</b> · Nature</span><span><b>时间</b> · 16h ago</span></div>
+      </a>
+
+      <a class="card" href="https://www.reuters.com/technology/artificial-intelligence/" target="_blank" rel="noopener">
+        <div class="card-rank">No. 07</div>
+        <span class="card-cat">行业 · 商业</span>
+        <h3 class="card-title">英伟达 H200 售价跌破 25,000 美元，企业级 GPU 价格战进入白热化</h3>
+        <p class="card-body">24GB 版本跌幅 18%，H100 同款系列同步降价。AWS、Azure、GCP 已跟调实例单价，推理成本进入下行通道。</p>
+        <div class="card-meta"><span><b>来源</b> · Reuters</span><span><b>时间</b> · 12h ago</span></div>
+      </a>
+
+      <a class="card" href="https://blog.google" target="_blank" rel="noopener">
+        <div class="card-rank">No. 08</div>
+        <span class="card-cat">产品 · 功能</span>
+        <h3 class="card-title">Google Gemini 3 上线"画布协作"：多人共写同一 prompt 实时合并</h3>
+        <p class="card-body">Workspace 全员开放，定位对标 Notion AI 与 Anthropic Artifacts。主打团队场景，单文档支持最多 20 人并发。</p>
+        <div class="card-meta"><span><b>来源</b> · Google Blog</span><span><b>时间</b> · 20h ago</span></div>
+      </a>
+
+      <a class="card" href="https://huggingface.co/blog" target="_blank" rel="noopener">
+        <div class="card-rank">No. 09</div>
+        <span class="card-cat">研究 · 观点</span>
+        <h3 class="card-title">Hugging Face 报告：开源 7B 性能已逼近 2024 年旗舰 70B</h3>
+        <p class="card-body">Qwen3、Llama 4 Scout、Mistral Small 3 在 MMLU 上突破 78%，推理成本下降 90%。本地部署性价比拐点已到。</p>
+        <div class="card-meta"><span><b>来源</b> · Hugging Face</span><span><b>时间</b> · 23h ago</span></div>
+      </a>
+
+      <a class="card" href="https://www.theinformation.com" target="_blank" rel="noopener">
+        <div class="card-rank">No. 10</div>
+        <span class="card-cat">行业 · 组织</span>
+        <h3 class="card-title">Meta 解散 Responsible AI 团队，部分职能并入产品部门</h3>
+        <p class="card-body">员工转岗至 GenAI 产品线，组织调整后 AI 治理话语权进一步向产品倾斜。与微软、Anthropic 的治理路线形成对比。</p>
+        <div class="card-meta"><span><b>来源</b> · The Information</span><span><b>时间</b> · 22h ago</span></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="sources">
+    <div style="font-size:13px;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase">数据源</div>
+    <div class="src-list">
+      <span class="src-chip">aihot AI 热点</span>
+      <span class="src-chip">钛媒体</span>
+      <span class="src-chip">雷锋网</span>
+      <span class="src-chip">36 氪</span>
+      <span class="src-chip">IT 之家</span>
+      <span class="src-chip">9to5google</span>
+    </div>
+  </div>
+
+  <footer>
+    <span>10 条 · 24h · 6 数据源 · 同公司已合并</span>
+    <span>小J（☘️）· 自动推送</span>
+  </footer>
+</body>
+</html>
